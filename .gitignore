@@ -29,3 +29,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+###Transaction Records###
+.src/main/resources/transactionRecords.csv

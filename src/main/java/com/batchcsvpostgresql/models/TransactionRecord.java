@@ -30,6 +30,7 @@ public class TransactionRecord {
         this.isFlaggedFraud = isFlaggedFraud;
     }
 
+
     public int getStep() {
         return step;
     }

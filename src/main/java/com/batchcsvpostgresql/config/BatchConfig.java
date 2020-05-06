@@ -51,5 +51,4 @@ public class BatchConfig extends DefaultBatchConfigurer {
                 .reader(Reader.reader("transactionRecords.csv"))
                 .processor(new Processor()).writer(new Writer(transactionRecordDao)).build();
     }
-
 }

@@ -16,7 +16,6 @@ public class Processor implements ItemProcessor<TransactionRecord, TransactionRe
     @Override
     public TransactionRecord process(TransactionRecord transactionRecord) throws Exception {
         Random r = new Random();
-
         final int step = transactionRecord.getStep();
         final String type = transactionRecord.getType().toUpperCase();
         final float amount = transactionRecord.getAmount();
