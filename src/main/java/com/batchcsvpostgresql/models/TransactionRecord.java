@@ -29,8 +29,6 @@ public class TransactionRecord {
         this.isFraud = isFraud;
         this.isFlaggedFraud = isFlaggedFraud;
     }
-
-
     public int getStep() {
         return step;
     }

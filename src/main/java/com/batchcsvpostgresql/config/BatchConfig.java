@@ -18,6 +18,8 @@ import org.springframework.batch.core.repository.support.MapJobRepositoryFactory
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.core.task.TaskExecutor;
 
 @Configuration
 @EnableBatchProcessing
@@ -46,9 +48,17 @@ public class BatchConfig extends DefaultBatchConfigurer {
     }
 
     @Bean
+    public TaskExecutor taskExecutor(){
+        SimpleAsyncTaskExecutor asyncTaskExecutor= new SimpleAsyncTaskExecutor("spring_batch");
+        asyncTaskExecutor.setConcurrencyLimit(5);
+        return asyncTaskExecutor;
+    }
+
+    @Bean
     public Step step1() {
-        return stepBuilderFactory.get("step1").<TransactionRecord, TransactionRecord>chunk(5)
+        return stepBuilderFactory.get("step1").<TransactionRecord, TransactionRecord>chunk(200000)
                 .reader(Reader.reader("transactionRecords.csv"))
-                .processor(new Processor()).writer(new Writer(transactionRecordDao)).build();
+                .processor(new Processor()).writer(new Writer(transactionRecordDao))
+                .taskExecutor(taskExecutor()).build();
     }
 }
